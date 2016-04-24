@@ -5,13 +5,13 @@
 - More topographic map specific features
 
 ### Setup
-1. Download and Install Mapbox Studio Classic (https://www.mapbox.com/mapbox-studio-classic/)
-2. Clone this repository to your machine:
+First, Ddownload and Install Mapbox Studio Classic (https://www.mapbox.com/mapbox-studio-classic/)
 
-`` git clone https://github.com/tcta/mb-classic-hikeOSM.tm2.git ``
+Then, clone this repository to your machine:
 
-3. Open Mapbox Studio Classic
-4. Go to Styles & Sources -> Browse and locate the cloned directory. Click Open.
+	git clone https://github.com/tcta/mb-classic-hikeOSM.tm2.git
+
+Open Mapbox Studio Classic. Go to Styles & Sources -> Browse and locate the cloned directory. Click Open.
 
 ### Layers
 The following is a list of data layers included in this map. Please contact for any suggestions of additions or changes.
