@@ -5,7 +5,15 @@
 // Airports and rail stations are styled separately from other POIs
 // because we use different fields to set their icon images.
 
-#poi_label[type!='Aerodrome'][type!='Rail Station'][type!='hole'] {
+// Mountain Peaks
+#mountain_peak_label[zoom>=11] {
+  text-name:[name_en] + '\n' + [elevation_m] + 'm';
+  marker-file: url("img/maki/[maki]-18.svg");
+  text-face-name: @sans;
+  text-placement: point;
+}
+
+#poi_label[type!='Aerodrome'][type!='Rail Station'][type!='hole'], {
   ::icon {
     [zoom<14],
     [zoom>=14][scalerank=1][localrank<=1],
@@ -160,3 +168,4 @@
 }
 
 /**/
+

@@ -6,9 +6,7 @@
 @main: #d8b8b0;
 @street: #fff;
 
-#road,
-#tunnel,
-#bridge {
+#road {
   // This section just sets up the ordering of the attachments
   ::mask { opacity: 1; }
   ::case { opacity: 1; }
@@ -16,15 +14,13 @@
   ::path { opacity: 1; }
 }
 
-#road,
-#tunnel,
-#bridge {
+#road {
   [class='motorway']['mapnik::geometry_type'=2], {
     ::case[zoom>=6] {
       line-color: @case;
       [zoom<=9] { line-color: @motorway; }
       #road { line-cap: round; }
-      #tunnel { line-dasharray: 3,3; }
+      #road[structure='tunnel'] { line-dasharray: 3,3; }
       line-width: 0.6;
       [zoom>= 8] { line-width: 0.8; }
       [zoom>=10] { line-width: 2.8; }
@@ -40,7 +36,7 @@
     ::fill[zoom>=10] {
       line-color: @motorway;
       line-cap: round;
-      #tunnel { line-color: mix(@motorway,@land,50); }
+      #road[structure='tunnel'] { line-color: mix(@motorway,@land,50); }
       [zoom>=11] { line-width: 1.2; }
       [zoom>=12] { line-width: 2; }
       [zoom>=13] { line-width: 3; }
@@ -55,7 +51,7 @@
     ::case {
       line-color: @case;
       #road { line-cap: round; }
-      #tunnel { line-dasharray: 3,3; }
+      #road[structure='tunnel'] { line-dasharray: 3,3; }
       [zoom>=12] { line-width: 2.8; }
       [zoom>=14] { line-width: 3.5; }
       [zoom>=16] { line-width: 5; }
@@ -64,19 +60,19 @@
     ::fill[zoom>=10] {
       line-color: @motorway;
       line-cap: round;
-      #tunnel { line-color: mix(@motorway,@land,50); }
+      #road[structure='tunnel'] { line-color: mix(@motorway,@land,50); }
       [zoom>=12] { line-width: 1.2; }
       [zoom>=14] { line-width: 2; }
       [zoom>=16] { line-width: 3; }
       [zoom>=18] { line-width: 4; }
     }
   }
-  [class='main']['mapnik::geometry_type'=2] {
+  [class='primary']['mapnik::geometry_type'=2] {
     ::case[zoom>=6] {
       line-color: @case;
       [zoom<=11] { line-color: @main; }
       #road { line-cap: round; }
-      #tunnel { line-dasharray: 3,3; }
+      #road[structure='tunnel'] { line-dasharray: 3,3; }
       line-width: 0.4;
       [zoom>=12] { line-width: 3; }
       [zoom>=13] { line-width: 3.5; }
@@ -89,7 +85,7 @@
     ::fill[zoom>=12] {
       line-color: @main;
       line-cap: round;
-      #tunnel { line-color: mix(@main,@land,50); }
+      #road[structure='tunnel'] { line-color: mix(@main,@land,50); }
       [zoom>=12] { line-width: 1; }
       [zoom>=13] { line-width: 1.5; }
       [zoom>=14] { line-width: 2; }
@@ -105,7 +101,7 @@
       line-color: @land * 0.8;
       line-opacity: 0.5;
       #road { line-cap: round; }
-      #tunnel { line-dasharray: 3,3; }
+      #road[structure='tunnel'] { line-dasharray: 3,3; }
       [zoom>=13] { line-width: 4; }
       [zoom>=14] { line-width: 4; }
       [zoom>=15] { line-width: 5; }
@@ -116,7 +112,7 @@
     ::fill[zoom>=13] {
       line-color: @street;
       #road { line-cap: round; }
-      #tunnel { line-color: mix(@street,@land,50); }
+      #road[structure='tunnel'] { line-color: mix(@street,@land,50); }
       [class='street_limited'] { line-dasharray: 6,1; }
       [zoom>=13] { line-width: 1.2; }
       [zoom>=14] { line-width: 1.6; }
@@ -131,7 +127,7 @@
       line-color: #000;
       line-opacity: 0.04;
       #road { line-cap: round; }
-      #tunnel { line-dasharray: 3,3; }
+      #road[structure='tunnel'] { line-dasharray: 3,3; }
       [zoom=13] { line-opacity: 0.5; }
       [zoom>=14] { line-width: 3; }
       [zoom>=15] { line-width: 3.5; }
@@ -142,7 +138,7 @@
     ::fill[zoom>=13] {
       line-color: @street;
       #road { line-cap: round; }
-      #tunnel { line-color: mix(@street,@land,50); }
+      #road[structure='tunnel'] { line-color: mix(@street,@land,50); }
       [zoom>=14] { line-width: 1; }
       [zoom>=15] { line-width: 1.5; }
       [zoom>=16] { line-width: 2; }
@@ -151,14 +147,14 @@
     }
   }
   [class='path'][type!='steps'] {
-    #bridge::mask[zoom>=16] {
+    #road[structure='bridge']::mask[zoom>=16] {
       line-color: #8f8880;
       line-width: 6;
     }
     ::case[zoom>=14]['mapnik::geometry_type'=2] {
       line-color: #ffd;
       line-opacity: 0.5;
-      #bridge { line-opacity: 1; }
+      #road[structure='bridge'] { line-opacity: 1; }
       line-join: round;
       line-width: 2;
       [type='cycleway'],
@@ -233,45 +229,7 @@
   }
 }
 
-#bridge[class='aerialway'][zoom>=13] {
-  ::case {
-    line-color: white;
-    line-opacity: 0.5;
-    line-width: 2;
-    [zoom=14] { line-width: 2.5; }
-    [zoom=15] { line-width: 3; }
-    [zoom=16] { line-width: 3.5; }
-    [zoom=17] { line-width: 4; }
-    [zoom>17] { line-width: 5; }
-  }
-  ::line {
-    line-color: #876;
-    line-width: 0.8;
-    [zoom>=14] { line-width: 1.4; }
-    [zoom>=15] { line-width: 1.6; }
-    [zoom>=16] { line-width: 2; }
-    [zoom>=17] { line-width: 2.4; }
-    [zoom>=18] { line-width: 3; }
-  }
-  ::pattern {
-    line-clip: false;
-    line-color: #876;
-    line-width: 4;
-    line-dasharray: 0.8, 10;
-    [zoom=14] { line-width: 6; }
-    [zoom=15] { line-width: 8; }
-    [zoom=16] { line-width: 10; }
-    [zoom=17] { line-width: 12; }
-    [zoom>17] { line-width: 14; }
-    [zoom=14] { line-dasharray: 1.4, 22; }
-    [zoom=15] { line-dasharray: 1.6, 35; }
-    [zoom=16] { line-dasharray: 2, 50; }
-    [zoom=17] { line-dasharray: 2.4, 65; }
-    [zoom>17] { line-dasharray: 3, 80; }
-  }
-}
-
-#bridge[class='golf'][zoom>=16] {
+#road[structure='bridge'][class='golf'][zoom>=16] {
   // golf hole ways are only in the bridge layer 
   // to keep them above everything else
   ::case {

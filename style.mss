@@ -33,15 +33,13 @@ Map {
   [class='grass'] { polygon-fill: @grass; }
   [class='crop'] { polygon-fill: @crop; }
   [class='snow'] { polygon-fill: @snow; }
-  // fade out stronger classes at high zooms,
-  // let more detailed OSM data take over a bit:
-  [class='wood'][zoom>=14],
-  [class='scrub'][zoom>=15],
-  [class='grass'][zoom>=16] {
-    [zoom>=14] { polygon-opacity: 0.8; }
-    [zoom>=15] { polygon-opacity: 0.6; }
-    [zoom>=16] { polygon-opacity: 0.4; }
-    [zoom>=17] { polygon-opacity: 0.2; }
+  // fade out after zoome level 9
+  // we want the OSM data to be used here - rather than the inaccurate landcover layer
+  [zoom>=4] {
+      [zoom>=4]{polygon-opacity: 0.7;}
+      [zoom>=5]{polygon-opacity: 0.4;}
+      [zoom>=6]{polygon-opacity: 0.2;}
+      [zoom>=7]{polygon-opacity: 0;}
   }
 }
 
@@ -52,9 +50,9 @@ Map {
   // any underlying shaped in the #landcover layer.
   ::cover33 { opacity: 0.33; }
   ::cover66 { opacity: 0.66; }
-  ::cover33[zoom=13],
-  ::cover66[zoom=14],
-  ::cover[zoom>=15] {
+  ::cover33[zoom=6],
+  ::cover66[zoom=7],
+  ::cover[zoom>=8] {
     // Bring in OSM landcover only at higher zoom levels where
     // the higher level of detail makes sense.
     [class='wood'] { polygon-fill: @wood; }
@@ -62,6 +60,7 @@ Map {
     [class='grass'] { polygon-fill: @grass; }
     [class='crop'] { polygon-fill: @crop; }
     [class='sand'] { polygon-fill: @sand; }
+    [class='glacier'] { polygon-fill: @snow; }
     [type='golf_course'],[type='rough'] { polygon-fill: darken(@park,10); }
   }
   ::cover33[zoom=10],
@@ -160,38 +159,45 @@ Map {
 }
 
 // Hillshading //
-
 #hillshade {
-  ::0[zoom<=13],
-  ::1[zoom=14],
-  ::2[zoom>=15][zoom<=16],
-  ::3[zoom>=17][zoom<=18],
-  ::4[zoom>=19] {
-    comp-op: hard-light;
+  ::0[zoom<=10],
+  ::1[zoom>=11][zoom<=12],
+  ::2[zoom=13],
+  ::3[zoom=14],
+  ::4[zoom>=15][zoom<=18],
+  ::5[zoom>=19] {
+//    comp-op: hard-light;
     polygon-clip: false;
     image-filters-inflate: true;
     [class='shadow'] {
-      polygon-fill: #216;
+      [level=89] { polygon-fill: #888; }
+      [level=78] { polygon-fill: #666; }
+      [level=67] { polygon-fill: #444; }
+      [level=56] { polygon-fill: #333; }
+//      polygon-fill: #216;
       polygon-comp-op: multiply;
       [zoom>=0][zoom<=3] { polygon-opacity: 0.10; }
       [zoom>=4][zoom<=5] { polygon-opacity: 0.08; }
-      [zoom>=6][zoom<=14] { polygon-opacity: 0.06; }
-      [zoom>=15][zoom<=16] { polygon-opacity: 0.04; }
-      [zoom>=17][zoom<=18] { polygon-opacity: 0.02; }
+      [zoom>=6][zoom<=12] { polygon-opacity: 0.08; }
+      [zoom>=13][zoom<=15] { polygon-opacity: 0.07; }
+      [zoom>=16][zoom<=18] { polygon-opacity: 0.03; }
       [zoom>=18] { polygon-opacity: 0.01; }
     }
     [class='highlight'] {
-      polygon-fill: #ffd;
-      polygon-opacity: 0.2;
-      [zoom>=15][zoom<=16] { polygon-opacity: 0.15; }
-      [zoom>=17][zoom<=18] { polygon-opacity: 0.10; }
+      [level=94] { polygon-fill: #ffe; }
+      [level=90] { polygon-fill: #eed; }
+//      polygon-fill: #eed;
+      polygon-opacity: 0.1;
+      [zoom>=15][zoom<=16] { polygon-opacity: 0.08; }
+      [zoom>=17][zoom<=18] { polygon-opacity: 0.06; }
       [zoom>=18] { polygon-opacity: 0.05; }
     }
   }
-  ::1 { image-filters: agg-stack-blur(2,2); }
+  ::1 { image-filters: agg-stack-blur(4,4); }
   ::2 { image-filters: agg-stack-blur(8,8); }
-  ::3 { image-filters: agg-stack-blur(16,16); }
+  ::3 { image-filters: agg-stack-blur(14,14); }
   ::4 { image-filters: agg-stack-blur(32,32); }
+  ::5 { image-filters: agg-stack-blur(32,32); }
 }
 
 // Elevation contours & labels //
@@ -208,11 +214,23 @@ Map {
     line-opacity: 0.2;
     line-width: 1.2;
   }
+  [zoom<=10] {
+    line-opacity: 0;
+  }
+  [zoom=11] {
+    line-width: 0.4;
+  }
+  [zoom=12] {
+    line-width: 0.6;
+  }
+  [zoom=13] {
+    line-width: 0.8;
+  }
 }
 
-#contour.label::label {
-  [zoom<=12][index>=5],
-  [zoom>=13][zoom<=15][index=10],
+#contour.label::label[zoom>=14] {
+  [zoom<=13][index>=5],
+  [zoom>=14][zoom<=15][index=10],
   [zoom>=16][index>=5] {
     text-name: "[ele]+' m'";
     text-face-name: 'Open Sans Regular';

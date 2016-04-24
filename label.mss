@@ -14,7 +14,7 @@
 
 // Name field to use. Language options:
 // name (local), name_en, name_fr, name_es, name_de
-@name: '[name]';
+@name: '[name_en]';
 
 // set up font sets for various weights and styles
 @sans_lt:           "Open Sans Regular","Arial Unicode MS Regular";
