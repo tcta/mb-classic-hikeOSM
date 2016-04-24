@@ -5,7 +5,7 @@
 - More topographic map specific features
 
 ### Setup
-First, Ddownload and Install Mapbox Studio Classic (https://www.mapbox.com/mapbox-studio-classic/)
+First, download and Install Mapbox Studio Classic (https://www.mapbox.com/mapbox-studio-classic/)
 
 Then, clone this repository to your machine:
 
