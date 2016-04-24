@@ -4,11 +4,15 @@
 - Greater emphasis on OpenStreetMap data
 - More topographic map specific features
 
+### Setup
+1. Download and Install Mapbox Studio Classic (https://www.mapbox.com/mapbox-studio-classic/)
+2. 
+
 ### Layers
 The following is a list of data layers included in this map. Please contact for any suggestions of additions or changes.
 
-|   Layer   |   Datasource   |
-
+|     Layer     |     Datasource     |
+| ------------- | ------------------ |
 |contour.label||
 |housenum_label||
 |waterway_label||
