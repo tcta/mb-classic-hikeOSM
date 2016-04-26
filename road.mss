@@ -67,7 +67,8 @@
       [zoom>=18] { line-width: 4; }
     }
   }
-  [class='primary']['mapnik::geometry_type'=2] {
+  [class='primary']['mapnik::geometry_type'=2], 
+  [class='secondary']['mapnik::geometry_type'=2] {
     ::case[zoom>=6] {
       line-color: @case;
       [zoom<=11] { line-color: @main; }
@@ -96,6 +97,7 @@
     }
   }
   [class='street']['mapnik::geometry_type'=2],
+  [class='tertiary']['mapnik::geometry_type'=2],
   [class='street_limited']['mapnik::geometry_type'=2] {
     ::case[zoom>=12] {
       line-color: @land * 0.8;

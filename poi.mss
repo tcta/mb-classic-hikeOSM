@@ -11,6 +11,9 @@
   marker-file: url("img/maki/[maki]-18.svg");
   text-face-name: @sans;
   text-placement: point;
+  text-halo-fill: fadeout(#fff,80%);
+  text-halo-radius: 1.5;
+  text-halo-rasterizer: fast;
 }
 
 #poi_label[type!='Aerodrome'][type!='Rail Station'][type!='hole'], {

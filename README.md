@@ -45,7 +45,23 @@ The following is a list of data layers included in this map. Please contact for 
 | landuse             | mapbox.mapbox-streets-v7 | This is left mostly unedited from Mapbox Outdoors Style; but it comes in stronger at earlier zoom levels, and glaciers from this layer has been made to replace snow from the landcover layer; remember that the features in this layer come from OpenStreetMap, so if something doesn't look good, edit it! |
 | landcover           | mapbox.mapbox-terrain-v2 | wood, scrub, grass, crop, and snow; very generalized and only used for stylistic purposes, so it has been mostly removed except at low zoom levels; The OSM data in the landuse layer replaces it, which is (or should be) more accurate; Edits to OSM will show up in the landuse layer. |
 
+#### To add
+- Valleys
+- Ridges, Ranges
+- Other Locales, such as Plateaus
+- spot heights (MB only seems to have some of them, in OSM they are marked as peaks)
+- mountain passes
+- escarpments? (maybe)
+- monadnock
+- individual trees, hedges
+- springs (water sources)
+- campsites
+- emphasize trails, tracks
+
+
+
 #### More layer references
 For more info on the layers see:
-mapbox.mapbox-terrain-v2 - https://www.mapbox.com/vector-tiles/mapbox-terrain/
-mapbox.mapbox-streets-v7 - https://www.mapbox.com/vector-tiles/mapbox-streets-v7/
+
+- mapbox.mapbox-terrain-v2 - https://www.mapbox.com/vector-tiles/mapbox-terrain/
+- mapbox.mapbox-streets-v7 - https://www.mapbox.com/vector-tiles/mapbox-streets-v7/
